@@ -1,0 +1,31 @@
+{% extends 'app/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<div class="container">
+  <div class="row justify-content-center"> <!-- Añadimos la clase 'justify-content-center' para centrar el contenido -->
+    <div class="col-md-6">
+      <div id="form-modificar" class="card">
+        <div class="card-body">
+          <h2 class="text-center" id="titulo-modificar">MODIFICAR REPARTO</h2>
+          <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="d-flex justify-content-end">
+              <button type="submit" class="btn"id="btn-guardarcambios">Guardar Cambios</button>
+              &nbsp;
+              <a href="{% url 'vista' %}" class="btn" id="btn-cancelar">Cancelar</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

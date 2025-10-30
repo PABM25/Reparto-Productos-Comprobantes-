@@ -1,0 +1,365 @@
+/*BASE*/
+
+#botonV {
+  list-style-type: none;
+  margin-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 5px;
+  border: 1px solid #ff8404;
+  border-radius: 5px;
+  background-color: black;
+  text-align: center;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilos de la barra de navegación */
+.navbar {
+  background-color: #ff8404;
+  display: flex;
+  align-items: center;
+  border: none;
+}
+
+/* Estilos del logotipo */
+.logo {
+  width: 100px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.form {
+  width: 500px;
+  margin: 0 auto;
+}
+
+/* Estilos de los campos específicos para Retiro en local */
+.campos-retiro {
+  display: none;
+}
+
+/* Estilos de los campos específicos para Reparto a domicilio */
+.campos-reparto {
+  display: none;
+}
+
+/*VISTA*/
+
+#filtro {
+  margin-top: 20px;
+}
+
+.comprobante {
+  width: 300px;
+  margin-left: 10px;
+  margin-bottom: 5px;
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.titulo {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #000;
+  font-family: Arial, sans-serif;
+}
+
+.lista {
+  list-style-type: none;
+  padding-left: 0;
+  line-height: 30px;
+}
+
+strong {
+  font-weight: bold;
+  line-height: 20px;
+}
+
+.oculto {
+  display: none;
+}
+@media print {
+  #hr-linea {
+    display: none;
+  }
+  #strong-texto {
+    display: none;
+  }
+  #btn-guardar {
+    display: none;
+  }
+  #filtro {
+    display: none;
+  }
+
+  #btn-imprimir {
+    display: none;
+  }
+
+  #inp-entregado {
+    display: none;
+  }
+  #label-entregado {
+    display: none;
+  }
+
+  body {
+    padding: 0;
+  }
+
+  @page {
+    size: 300px 1047px;
+  }
+
+  /* Ajusta el contenido al tamaño del papel */
+  #div-comprobante {
+    width: 378px;
+    margin-bottom: 50px;
+    font-size: 25px;
+    border: none;
+    color: #000;
+    .titulo {
+      font-size: 30px;
+      color: #000;
+    }
+    #img-logoComp {
+      width: 200px;
+      height: 130px;
+    }
+    #rut {
+      margin-left: 2px;
+      text-align: left;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    #numero,
+    #fecha {
+      margin-left: 2px;
+      text-align: left;
+      font-size: 18px;
+    }
+    #div-encabezado {
+      text-align: left;
+      margin-left: 2px;
+      border: 1px dotted;
+    }
+    #ul-lista {
+      list-style-type: none;
+      padding-left: 0;
+      line-height: 50px;
+    }
+  }
+
+  /* Centra el contenido verticalmente */
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Ajusta el tamaño del contenido para ajustarse al papel */
+  #div-comprobante {
+    transform: scale(1); /* Reiniciamos la escala para evitar conflictos */
+    width: 378px;
+    height: 1047px;
+  }
+}
+
+#img-logocomp {
+  width: 170px;
+  height: 100px;
+  margin: auto;
+  display: block;
+}
+
+#rut {
+  margin-left: 2px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#numero,
+#fecha {
+  margin-left: 2px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#div-encabezado {
+  text-align: left;
+  margin-left: 2px;
+  border: 1px dotted;
+}
+
+#cont-entregado {
+  margin: auto;
+  display: block;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
+}
+/* Estilos para los botones */
+
+#btn-imprimir {
+  background-color: #ff8404;
+  color: white;
+  border: none;
+  margin-bottom: 10px;
+}
+
+#btn-modificar {
+  background-color: #ff8404;
+  color: white;
+  border: none;
+  margin-bottom: 10px;
+}
+
+#btn-buscar {
+  background-color: #ff8404;
+  color: white;
+  border: none;
+  margin-bottom: 10px;
+}
+
+#btn-guardar {
+  background-color: #ff8404;
+  color: white;
+  border: none;
+  margin-bottom: 10px;
+}
+
+#btn-eliminar {
+  background-color: red;
+  color: white;
+  border: none;
+  margin-bottom: 10px;
+}
+
+/*HOME.HTML*/
+
+#row {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: grid;
+  place-items: center;
+}
+
+#formulario-reparto {
+  width: 500px;
+  margin: 0 auto;
+  margin-bottom: 5px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  margin: 5px;
+}
+
+.inp {
+  width: 100%;
+}
+
+textarea {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  margin: 5px;
+  width: 100%;
+}
+select {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  margin: 5px;
+  width: 100%;
+}
+#titulo-form {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  padding: 5px;
+}
+
+/* Estilos para el botón de Enviar */
+#btnEnviar {
+  background-color: #ff8404;
+  color: white;
+  border: none;
+}
+
+/* Estilos para el botón de Cancelar */
+#btnCancelar {
+  background-color: red;
+  color: white;
+  border: none;
+}
+#btn-ver {
+  background-color: #ff8404;
+  color: white;
+  border: none;
+}
+
+/*MODIFICAR REPARTO*/
+
+.row {
+  margin-top: 20px;
+}
+
+.container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#form-modificar {
+  width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#titulo-modificar {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  padding: 5px;
+}
+
+#btn-guardarcambios {
+  background-color: #ff8404;
+  color: white;
+  border: none;
+}
+
+#btn-cancelar {
+  background-color: red;
+  color: white;
+  border: none;
+}

@@ -1,0 +1,192 @@
+{% extends 'app/base.html' %}
+<!-- Extiende la plantilla base.html -->
+
+{% block contenido %}
+<!-- Define un bloque de contenido -->
+
+<script>
+  function mostrarCampos() {
+    var opcionEntrega = document.querySelector(
+      'input[name="opcion_entrega"]:checked'
+    ).value; // Obtiene el valor de la opción de entrega seleccionada
+    var opcionRetiro = document.querySelector(
+      'input[name="opcion_retiro"]:checked'
+    ); // Obtiene el elemento de opción de retiro seleccionado
+    var camposRetiro = document.getElementById("campos-retiro"); // Obtiene el elemento de los campos de retiro
+    var camposEntrega = document.getElementById("campos-entrega"); // Obtiene el elemento de los campos de entrega
+    var campoDireccion = document.getElementById("campo-direccion"); // Obtiene el elemento del campo de dirección
+
+    if (opcionEntrega === "0") {
+      // Si la opción de entrega es "0" (Retiro en tienda)
+      camposRetiro.style.display = "block"; // Muestra los campos de retiro
+      camposEntrega.style.display = "none"; // Oculta los campos de entrega
+      campoDireccion.style.display = "none"; // Oculta el campo de dirección
+    } else if (opcionEntrega === "1") {
+      // Si la opción de entrega es "1" (Reparto a domicilio)
+      camposRetiro.style.display = "none"; // Oculta los campos de retiro
+      camposEntrega.style.display = "block"; // Muestra los campos de entrega
+      campoDireccion.style.display = "block"; // Muestra el campo de dirección
+    }
+  }
+</script>
+
+<section>
+  <div class="row" id="row">
+    <div id="formulario-reparto" class="card">
+      <div class="card-body">
+        <h2 class="text-center" id="titulo-form">FORMULARIO</h2>
+        <form action="" class="" method="post">
+          <!-- Formulario que envía los datos a la URL 'home' -->
+          {% csrf_token %}
+          <!-- Token CSRF para protección contra falsificación de solicitudes entre sitios -->
+          <label>
+            <input
+              type="radio"
+              name="opcion_entrega"
+              value="0"
+              onchange="mostrarCampos()"
+            />
+            <!-- Campo de opción de entrega: Retiro en tienda -->
+            Retiro en tienda
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="opcion_entrega"
+              value="1"
+              onchange="mostrarCampos()"
+            />
+            <!-- Campo de opción de entrega: Reparto a domicilio -->
+            Reparto a domicilio
+          </label>
+          <p>
+            <label class="inp" for="nombre_vendedor">Nombre Vendedor:</label>
+            <input
+              class="inp"
+              type="text"
+              id="nombre_vendedor"
+              name="nombre_vendedor"
+            />
+            <!-- Campo de número de venta -->
+          </p>
+          <p>
+            <label class="inp" for="num_vendedor">Número Vendedor:</label>
+            <input
+              class="inp"
+              type="number"
+              id="num_vendedor"
+              name="num_vendedor"
+            />
+            <!-- Campo de número de venta -->
+          </p>
+          <p>
+            <label class="inp" for="num_venta">Número de Venta:</label>
+            <input class="inp" type="number" id="num_venta" name="num_venta" />
+            <!-- Campo de número de venta -->
+          </p>
+          <p>
+            <label for="fecha_venta">Fecha de Venta:</label>
+            <input
+              class="inp"
+              type="date"
+              id="fecha_venta"
+              name="fecha_venta"
+            />
+            <!-- Campo de fecha de venta -->
+          </p>
+          <p>
+            <label class="inp" for="nombre_cliente">Nombre Cliente:</label>
+            <input
+              class="inp"
+              type="text"
+              id="nombre_cliente"
+              name="nombre_cliente"
+            />
+            <!-- Campo de nombre del cliente -->
+          </p>
+          <p>
+            <label for="articulos">Artículos:</label>
+            <textarea id="articulos" name="articulos"></textarea>
+            <!-- Campo de artículos -->
+          </p>
+
+          <div id="campos-retiro" style="display: none">
+            <!-- Div para los campos de retiro -->
+            <p>
+              <label for="opcion_retiro">Opción de Retiro:</label>
+              <select id="opcion_retiro" name="opcion_retiro">
+                <!-- Campo de opción de retiro -->
+                <option value="2">Retiro Local</option>
+                <!-- Opción de retiro local -->
+                <option value="3">Retiro Bodega</option>
+                <!-- Opción de retiro de bodega -->
+              </select>
+            </p>
+            <p>
+              <label for="fecha_retiro">Fecha de Retiro:</label>
+              <input
+                class="inp"
+                type="date"
+                id="fecha_retiro"
+                name="fecha_retiro"
+              />
+              <!-- Campo de fecha de retiro -->
+            </p>
+          </div>
+          <div id="campos-entrega" style="display: none">
+            <!-- Div para los campos de entrega -->
+            <div id="campo-direccion" style="display: none">
+              <!-- Div para el campo de dirección -->
+              <p>
+                <label for="direccion">Dirección:</label>
+                <input
+                  class="inp"
+                  type="text"
+                  id="direccion"
+                  name="direccion"
+                />
+                <!-- Campo de dirección -->
+              </p>
+            </div>
+            <p>
+              <label for="telefono">Teléfono:</label>
+              <input class="inp" type="number" id="telefono" name="telefono" />
+              <!-- Campo de teléfono -->
+            </p>
+            <p>
+              <label for="fecha_entrega">Fecha de Entrega:</label>
+              <input
+                class="inp"
+                type="date"
+                id="fecha_entrega"
+                name="fecha_entrega"
+              />
+              <!-- Campo de fecha de entrega -->
+            </p>
+          </div>
+          <p>
+            <label for="observacion">Observaciones:</label>
+            <textarea id="observacion" name="observacion"></textarea>
+            <!-- Campo de observaciones -->
+          </p>
+          <div class="d-flex justify-content-end">
+            <button type="submit" id="btnEnviar" class="btn">Enviar</button>
+            <!-- Botón de envío del formulario -->
+            &nbsp;
+            <button type="reset" id="btnCancelar" class="btn">Cancelar</button>
+            <!-- Botón de reinicio del formulario -->
+            &nbsp;
+            <a href="{% url 'vista' %}" class="btn" id="btn-ver">Ver</a>
+            <!-- Enlace para ver la vista -->
+          </div>
+        </form>
+
+        {{ mensaje }}
+        <!-- Variable de plantilla para mostrar un mensaje -->
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+<!-- Fin del bloque de contenido -->

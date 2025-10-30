@@ -1,0 +1,146 @@
+{% extends 'app/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<div class="container">
+  <div class="row">
+    <div class="align-items-center"> <!-- Agregar la clase 'd-flex flex-column align-items-center' aquí -->
+      <div class="filtro {% if imprimir %}oculto{% endif %}" id="filtro">
+        <div class="card">
+          <div class="card-body">
+            <form method="GET" >
+              <div class="form-group" id="buscar">
+                <label for="numero_venta">Buscar por número de venta:</label>
+                <input type="text" class="form-control" id="numero_venta" name="numero_venta" placeholder="Número de venta">
+              </div>
+              <button type="submit" class="btn" id="btn-buscar">Buscar</button>
+            </form>
+          </div>
+        </div>
+        <div class="mt-3">
+          <button class="btn" id="btn-eliminar" onclick="eliminar()">Eliminar</button>
+          <button class="btn ml-2" id="btn-modificar" onclick="modificar()">Modificar</button>
+        </div>
+      </div>
+      <form method="post">
+        {% csrf_token %}
+        <div class="container" id="cont-entregado">
+          <div class="form-group entregado">
+              <label for="entregado" id="label-entregado">Producto Entregado:</label>
+              <input type="checkbox" class="entregado" id="inp-entregado" name="entregado" {% if reparto.entregado %}checked{% endif %}>
+          </div>
+          <button type="submit" class="btn guardar" id="btn-guardar">Guardar Cambios</button>
+        </div>
+         
+      </form>
+    </div>
+    <div class="align-items-center"> <!-- Agregar la clase 'd-flex flex-column align-items-center' aquí -->
+      <div class="comprobante" id="div-comprobante">
+        <img class="logoComp" id="img-logocomp" src="{% static 'app/img/logo.jpg'%}" alt="Logo">
+        <h2 class="titulo" id="h2-titulo">Comprobante Entrega</h2>
+        <div class="encabezado" id="div-encabezado">
+          <strong class="rut" id="rut">RUT: 82.216.800-0</strong><br>
+          {% for reparto in repartos %}
+          <strong class="numero" id="numero">Número de Venta:</strong> {{ reparto.num_venta }}<br>
+          <strong class="fecha" id="fecha">Fecha de Venta:</strong> {{ reparto.fecha_venta|date:"d/m/Y"}}<br>
+        </div>
+        <ul class="lista" id="ul-lista">
+          
+          <li>
+            <strong>Opción de Entrega:</strong> {{ reparto.get_opcion_entrega_display }}<br>
+            <strong>Nombre Cliente:</strong> {{ reparto.nombre_cliente }}<br>
+            <strong>Teléfono:</strong> {{ reparto.telefono }}<br>
+            <strong>Dirección:</strong> {{ reparto.direccion }}<br>
+            <strong>Artículos:</strong> {{ reparto.articulos }}<br>
+            <strong>Fecha de Entrega:</strong> {{ reparto.fecha_entrega|date:"d/m/Y"}}<br>
+            <strong>Fecha de Retiro:</strong> {{ reparto.fecha_retiro|date:"d/m/Y"}}<br>
+            <strong>Opción de Retiro:</strong> {{ reparto.get_opcion_retiro_display }}<br>
+            <strong>Observación:</strong> {{ reparto.observacion }}<br>
+            <hr class="linea" id="hr-linea">
+            <strong class="texto" id="strong-texto">Producto Entregado:</strong> <span class="mostrar-en-imprimir">{% if reparto.entregado %}Sí{% else %}No{% endif %}</span><br>
+            <hr >
+            <strong>Número y Nombre del Vendedor:</strong> {{ reparto.num_vendedor }} - {{ reparto.nombre_vendedor }}<br>
+
+          </li>
+          {% empty %}
+          <li>No se encontraron repartos</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      {% if not imprimir %}
+      <div class="row d-flex justify-content-center">
+        <button type="button" class="btn btn-imprimir" id="btn-imprimir" onclick="imprimirComprobante()">Imprimir Comprobante</button>  
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+<script>
+  function imprimirComprobante() {
+    window.print();
+  }
+</script>
+
+<script>
+  function eliminar() {
+    // Obtener el número de venta actual seleccionado (si existe)
+    const numeroVenta = document.querySelector('input[name="numero_venta"]').value;
+    
+    if (numeroVenta) {
+      // Redireccionar a la vista de eliminación con el número de venta como parámetro
+      window.location.href = `/eliminar-reparto/?numero_venta=${numeroVenta}`;
+    } else {
+      // Mostrar un mensaje de error si no se selecciona ningún número de venta
+      alert("Por favor, selecciona un número de venta para eliminar.");
+    }
+  }
+
+  function modificar() {
+    // Obtener el número de venta actual seleccionado (si existe)
+    const numeroVenta = document.querySelector('input[name="numero_venta"]').value;
+    
+    if (numeroVenta) {
+      // Redireccionar a la vista de modificación con el número de venta como parámetro
+      window.location.href = `/modificar-reparto/?numero_venta=${numeroVenta}`;
+    } else {
+      // Mostrar un mensaje de error si no se selecciona ningún número de venta
+      alert("Por favor, selecciona un número de venta para modificar.");
+    }
+  }
+</script>
+
+<script>
+  // Función para ocultar la respuesta antes de imprimir
+  function ocultarRespuestaEnImprimir() {
+      const respuesta = document.querySelector('.mostrar-en-imprimir');
+      if (respuesta) {
+          respuesta.style.display = 'none';
+      }
+  }
+
+  // Función para restaurar la respuesta después de imprimir
+  function mostrarRespuestaDespuesDeImprimir() {
+      const respuesta = document.querySelector('.mostrar-en-imprimir');
+      if (respuesta) {
+          respuesta.style.display = 'inline'; // Puedes usar 'block', 'inline-block', etc., según el elemento.
+      }
+  }
+
+  // Evento que se dispara antes de imprimir
+  window.addEventListener('beforeprint', ocultarRespuestaEnImprimir);
+
+  // Evento que se dispara después de imprimir
+  window.addEventListener('afterprint', mostrarRespuestaDespuesDeImprimir);
+</script>
+
+
+{% endblock %}
+
+
