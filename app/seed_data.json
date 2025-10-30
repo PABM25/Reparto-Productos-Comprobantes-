@@ -1,0 +1,62 @@
+[
+  {
+    "model": "app.reparto",
+    "pk": 1,
+    "fields": {
+      "opcion_entrega": 1,
+      "num_venta": 1001,
+      "fecha_venta": "2025-10-28",
+      "nombre_cliente": "Juan Pérez",
+      "direccion": "Av. Siempre Viva 742",
+      "telefono": "+56912345678",
+      "articulos": "1x Refrigerador Samsung Modelo X\n2x Cable HDMI 2.1",
+      "fecha_entrega": "2025-10-30",
+      "fecha_retiro": null,
+      "opcion_retiro": 2,
+      "observacion": "Entregar en conserjería si no hay nadie. Llamar 30 min antes.",
+      "num_vendedor": 55,
+      "nombre_vendedor": "Ana García",
+      "entregado": false
+    }
+  },
+  {
+    "model": "app.reparto",
+    "pk": 2,
+    "fields": {
+      "opcion_entrega": 0,
+      "num_venta": 1002,
+      "fecha_venta": "2025-10-29",
+      "nombre_cliente": "María López",
+      "direccion": "",
+      "telefono": "+56987654321",
+      "articulos": "1x Audífonos Sony WH-1000XM5",
+      "fecha_entrega": null,
+      "fecha_retiro": "2025-10-29",
+      "opcion_retiro": 3,
+      "observacion": "Cliente retira en bodega central.",
+      "num_vendedor": 56,
+      "nombre_vendedor": "Carlos Ruiz",
+      "entregado": true
+    }
+  },
+  {
+    "model": "app.reparto",
+    "pk": 3,
+    "fields": {
+      "opcion_entrega": 1,
+      "num_venta": 1003,
+      "fecha_venta": "2025-10-30",
+      "nombre_cliente": "Pedro Soto",
+      "direccion": "Calle Falsa 123, Depto 5B",
+      "telefono": "+56955554444",
+      "articulos": "1x Teclado Mecánico Keychron Q1",
+      "fecha_entrega": "2025-11-02",
+      "fecha_retiro": null,
+      "opcion_retiro": 2,
+      "observacion": "Solo despacho.",
+      "num_vendedor": 55,
+      "nombre_vendedor": "Ana García",
+      "entregado": false
+    }
+  }
+]

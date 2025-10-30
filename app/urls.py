@@ -1,12 +1,15 @@
 from django.urls import path
-from .views import home, imprimir_comprobante, vista,  eliminar_reparto, modificar_reparto
-from django.conf import settings
-from django.conf.urls.static import static
+from . import views  # Es mejor importar 'views' así
 
 urlpatterns = [
-    path('', home, name="home"),
-    path('vista/', vista, name="vista"),
-    path('eliminar-reparto/', eliminar_reparto, name="eliminar_reparto"),
-    path('modificar-reparto/', modificar_reparto, name="modificar_reparto"),
-    path('imprimir-comprobante/', imprimir_comprobante, name='imprimir_comprobante'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('', views.home, name="home"),
+    path('vista/', views.vista, name="vista"),
+    
+    # --- MEJORA DE SEGURIDAD: Usar <int:num_venta> en la URL ---
+    path('eliminar-reparto/<int:num_venta>/', views.eliminar_reparto, name="eliminar_reparto"),
+    path('modificar-reparto/<int:num_venta>/', views.modificar_reparto, name="modificar_reparto"),
+    # --- FIN DE MEJORA ---
+    
+    path('imprimir-comprobante/', views.imprimir_comprobante, name='imprimir_comprobante'),
+]
+
