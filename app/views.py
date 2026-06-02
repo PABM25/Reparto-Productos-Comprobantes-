@@ -53,7 +53,7 @@ def imprimir_comprobante(request):
 
 
     # Devolver una respuesta de éxito
-    return HttpResponse("Comprobante impreso correctamente.")
+    return HttpResponse(comprobante_texto, content_type='text/plain')
         
         
 def home(request):
@@ -107,10 +107,9 @@ def vista(request):
     return render(request, 'app/vista.html', data)
 
 
-def eliminar_reparto(request):
-    numero_venta = request.GET.get('numero_venta')
-    if numero_venta:
-        reparto = Reparto.objects.filter(num_venta=numero_venta).first()
+def eliminar_reparto(request, num_venta):
+    if num_venta:
+        reparto = Reparto.objects.filter(num_venta=num_venta).first()
         if reparto:
             reparto.delete()
             return redirect('vista')
@@ -118,10 +117,9 @@ def eliminar_reparto(request):
     # Si no se encuentra el reparto o no se proporciona un número de venta válido, redireccionar a la vista sin hacer nada
     return redirect('vista')
 
-def modificar_reparto(request):
-    numero_venta = request.GET.get('numero_venta')
-    if numero_venta:
-        reparto = Reparto.objects.filter(num_venta=numero_venta).first()
+def modificar_reparto(request, num_venta):
+    if num_venta:
+        reparto = Reparto.objects.filter(num_venta=num_venta).first()
         if reparto:
             if request.method == 'POST':
                 form = RepartoForm(request.POST, instance=reparto)

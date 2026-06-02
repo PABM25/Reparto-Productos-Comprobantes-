@@ -11,7 +11,7 @@ opcion_retiro = [  # Lista de opciones de retiro con tuplas que contienen un nú
 ]
 
 class Reparto(models.Model):  # Define un modelo llamado Reparto que hereda de models.Model
-    opcion_entrega = models.IntegerField( choices=opciones_entrega, default="0")  # Campo CharField que representa la opción de entrega
+    opcion_entrega = models.IntegerField( choices=opciones_entrega, default=0)  # Campo CharField que representa la opción de entrega
     num_venta = models.IntegerField()  # Campo IntegerField que representa el número de venta
     fecha_venta = models.DateField()  # Campo DateField que representa la fecha de venta
     nombre_cliente = models.CharField(max_length=60)  # Campo CharField que representa el nombre del cliente
@@ -20,7 +20,7 @@ class Reparto(models.Model):  # Define un modelo llamado Reparto que hereda de m
     articulos = models.TextField(max_length=300)  # Campo TextField que representa los artículos
     fecha_entrega = models.DateField(blank=True, null=True)  # Modificamos el campo fecha_entrega
     fecha_retiro = models.DateField(blank=True, null=True)  # Campo DateField que representa la fecha de retiro
-    opcion_retiro = models.IntegerField( choices=opcion_retiro, default="2")  # Campo CharField que representa la opción de retiro
+    opcion_retiro = models.IntegerField( choices=opcion_retiro, default=2)  # Campo CharField que representa la opción de retiro
     observacion = models.TextField(max_length=200)  # Campo TextField que representa la observación
     num_vendedor = models.IntegerField(blank=True, null=True)
     nombre_vendedor = models.CharField(max_length=60, blank=True, null=True)

@@ -95,7 +95,7 @@
     
     if (numeroVenta) {
       // Redireccionar a la vista de eliminación con el número de venta como parámetro
-      window.location.href = `/eliminar-reparto/?numero_venta=${numeroVenta}`;
+      window.location.href = `/eliminar-reparto/${numeroVenta}/`;
     } else {
       // Mostrar un mensaje de error si no se selecciona ningún número de venta
       alert("Por favor, selecciona un número de venta para eliminar.");
@@ -108,7 +108,7 @@
     
     if (numeroVenta) {
       // Redireccionar a la vista de modificación con el número de venta como parámetro
-      window.location.href = `/modificar-reparto/?numero_venta=${numeroVenta}`;
+      window.location.href = `/modificar-reparto/${numeroVenta}/`;
     } else {
       // Mostrar un mensaje de error si no se selecciona ningún número de venta
       alert("Por favor, selecciona un número de venta para modificar.");
