@@ -14,6 +14,7 @@ La aplicación permite registrar información detallada sobre las ventas, incluy
 * **Opciones de Retiro:** Define lugares de retiro específicos como "Retiro Local" o "Retiro bodega".
 * **Estado de Entrega:** Permite marcar un reparto como `entregado` (verdadero/falso).
 * **Impresión:** Incluye una funcionalidad para "imprimir comprobante".
+* **Acceso con usuario:** todas las páginas requieren iniciar sesión, y eliminar un reparto pide confirmación.
 * **Seguridad:** Utiliza `python-decouple` para gestionar variables sensibles (como `SECRET_KEY` y `DEBUG`) fuera del código fuente.
 
 ## Tecnologías Utilizadas
@@ -48,17 +49,16 @@ Para ejecutar este proyecto localmente, sigue estos pasos:
     ```
 
 3.  **Instalar las dependencias:**
-    El archivo `requeriments.txt` lista todas las dependencias necesarias.
+    El archivo `requirements.txt` lista todas las dependencias necesarias.
     ```bash
-    pip install -r requeriments.txt
+    pip install -r requirements.txt
     ```
 
 4.  **Configurar variables de entorno:**
     El proyecto usa `python-decouple`, por lo que necesitas crear un archivo `.env` en la raíz del proyecto (junto a `manage.py`).
-    ```ini
-    # Archivo .env
-    SECRET_KEY=tu_clave_secreta_muy_segura_aqui
-    DEBUG=True
+    Copia `.env.example` como `.env` y cambia `SECRET_KEY`:
+    ```bash
+    cp .env.example .env
     ```
 
 5.  **Aplicar las migraciones:**
@@ -67,9 +67,23 @@ Para ejecutar este proyecto localmente, sigue estos pasos:
     python manage.py migrate
     ```
 
-6.  **Ejecutar el servidor de desarrollo:**
+6.  **Crear un usuario para entrar a la aplicación:**
+    Todas las páginas piden iniciar sesión.
+    ```bash
+    python manage.py createsuperuser
+    ```
+
+7.  **Ejecutar el servidor de desarrollo:**
     ```bash
     python manage.py runserver
     ```
 
     La aplicación estará disponible en `http://127.0.0.1:8000/`.
+
+## Pruebas
+
+```bash
+python manage.py test
+```
+
+Las pruebas también corren en GitHub Actions en cada pull request.
