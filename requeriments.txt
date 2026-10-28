@@ -1,5 +1,0 @@
-django
-django-admin-interface
-django-crispy-forms
-crispy-bootstrap4
-python-decouple

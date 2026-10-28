@@ -15,6 +15,14 @@
             <img class="logo" src="{% static 'app/img/logo-electro-horn.jpg'%}" alt="Logo">
             <ul class="nav-links">
                 <li id="botonV"><a style="color: orange" href="{% url 'home' %}">Volver</a></li>
+                {% if user.is_authenticated %}
+                <li>
+                    <form method="post" action="{% url 'logout' %}" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-link" style="color: orange">Cerrar sesión</button>
+                    </form>
+                </li>
+                {% endif %}
             </ul>
         </nav>
 
